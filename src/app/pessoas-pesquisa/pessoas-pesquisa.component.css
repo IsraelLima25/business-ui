@@ -1,0 +1,7 @@
+p-dataTable a:hover {
+    text-decoration: underline;
+}
+
+p-dataTable a {
+    text-decoration: none;
+}
