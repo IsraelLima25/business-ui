@@ -18,33 +18,7 @@
         <div class="ui-g-12">
             <button pButton type="submit" label="Pesquisar"></button>
         </div>
-    </div>
-    <div class="ui-g">
-        <div class="ui-g-12">
-            <p-dataTable [value]="lancamentos" [paginator]="true" [rows]="4" [responsive]="true">
-                <p-column field="pessoa" header="Pessoa"></p-column>
-                <p-column field="descricao" header="Descrição"></p-column>
-                <p-column styleClass="col-data" field="dataVencimento" header="Vencimento">
-                    <ng-template let-lanc="rowData" pTemplate="body">
-                        <span>{{lanc.dataVencimento | date:'dd/MM/y'}}</span>
-                    </ng-template>
-                </p-column>
-                <p-column styleClass="col-data" field="dataPagamento" header="Pagamento"></p-column>
-                <p-column styleClass="col-valor" field="valor" header="Valor">
-                    <ng-template let-lanc="rowData" pTemplate="body">
-                        <span [ngStyle]="{color : lanc.tipo === 'DESPESA' ? 'red' : 'blue'}">
-                        {{lanc.valor | currency:'BRL':'symbol':'1.2-2'}}
-                      </span>
-                    </ng-template>
-                </p-column>
-                <p-column styleClass="col-acoes">
-                    <ng-template pTemplate="body">
-                        <a pButton pTooltip="Editar" tooltipPosition="top" icon="fa-pencil"></a>
-                        <button pButton pTooltip="Excluir" tooltipPosition="top" icon="fa-trash"></button>
-                    </ng-template>
-                </p-column>
-            </p-dataTable>
-        </div>
+        <app-lista-lancamentos [lancamentos]="lancamentos"></app-lista-lancamentos>
     </div>
     <div class="ui-g-12">
         <button pButton type="submit" label="Novo lançamento"></button>

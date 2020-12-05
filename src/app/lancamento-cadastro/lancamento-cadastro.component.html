@@ -1,0 +1,50 @@
+<div class="container">
+    <form #formulario="ngForm">
+        <div class="ui-g">
+            <div class="ui-g-12">
+                <h1>Novo Lançamento</h1>
+            </div>
+            <div class="ui-g-12">
+                <p-selectButton #tipo name="selectType" [options]="types" [(ngModel)]="selectedType"></p-selectButton>
+            </div>
+            <div class="ui-g-6 ui-md-3 ui-fluid">
+                <label>Vencimento</label>
+                <p-calendar [showIcon]="true" ngModel #dataVencimento="ngModel" name="dataVencimento" dateFormat="dd/mm/yy" required></p-calendar>
+                <app-message [control]="dataVencimento" typeError="required" text="Campo Obrigatório" severity="error"></app-message>
+            </div>
+            <div class="ui-g-6 ui-md-3 ui-fluid">
+                <label>{{tipo.value === 'RECEITA' ? 'Recebimento' : 'Pagamento'}}</label>
+                <p-calendar [showIcon]="true" dateFormat="dd/mm/yy"></p-calendar>
+            </div>
+            <div class="ui-g-12 ui-md-10 ui-fluid">
+                <label>Descrição</label>
+                <input pInputText ngModel #descricao="ngModel" required minlength="5" name="descricao" type="text">
+                <app-message [control]="descricao" typeError="required" text="Campo Obrigatório" severity="error"></app-message>
+                <app-message [control]="descricao" typeError="minlength" text="Mínimo de {{ descricao?.errors?.minlength?.requiredLength }} caracteres" severity="error"></app-message>
+            </div>
+            <div class="ui-g-12 ui-md-2 ui-fluid">
+                <label>Valor</label>
+                <input class="col-valor" name="valor" ngModel currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" pInputText type="text" placeholder="0,00">
+            </div>
+            <div class="ui-g-12 ui-md-6 ui-fluid">
+                <label>Categoria</label>
+                <p-dropdown name="dropdownCategoria" ngModel #categoria="ngModel" required [autoWidth]="false" [options]="categorias" [(ngModel)]="dropDownCategoria"></p-dropdown>
+                <app-message [control]="categoria" typeError="required" text="Campo Obrigatório" severity="error"></app-message>
+            </div>
+            <div class="ui-g-12 ui-md-6 ui-fluid">
+                <label>Pessoa</label>
+                <p-dropdown name="dropdownPessoa" ngModel #pessoa="ngModel" required [filter]="true" [autoWidth]="false" [options]="pessoas" [(ngModel)]="dropDownPessoa"></p-dropdown>
+                <app-message [control]="pessoa" typeError="required" text="Campo Obrigatório" severity="error"></app-message>
+            </div>
+            <div class="ui-g-12 ui-fluid">
+                <label>Observação</label>
+                <textarea pInputTextarea rows="3"></textarea>
+            </div>
+            <div class="ui-g-12">
+                <button [disabled]="!formulario.valid" pButton type="submit" label="Salvar"></button>
+                <button pButton type="submit" class="ui-button-info" label="Novo"></button>
+                <a href="#">Voltar para a pesquisa</a>
+            </div>
+        </div>
+    </form>
+</div>
