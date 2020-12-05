@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-import { LancamentoCadastroComponent } from './lancamento-cadastro/lancamento-cadastro.component';
 import { SharedModule } from '../shared/shared.module';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SelectButtonModule } from 'primeng/components/selectbutton/selectbutton';
 import { CalendarModule } from 'primeng/components/calendar/calendar';
 import { DropdownModule } from 'primeng/components/dropdown/dropdown';
@@ -13,12 +13,16 @@ import { InputTextModule } from 'primeng/components/inputtext/inputtext';
 import { InputTextareaModule } from 'primeng/components/inputtextarea/inputtextarea';
 import { ButtonModule } from 'primeng/components/button/button';
 
-import { CurrencyMaskModule } from 'ng2-currency-mask'
+import { CurrencyMaskModule } from 'ng2-currency-mask';
+
 import { LancamentosPesquisaComponent } from './lancamentos-pesquisa/lancamentos-pesquisa.component';
 import { ListaLancamentosComponent } from './lista-lancamentos/lista-lancamentos.component';
+import { LancamentoCadastroComponent } from './lancamento-cadastro/lancamento-cadastro.component';
+
 
 @NgModule({
   imports: [
+    BrowserAnimationsModule,
     CommonModule,
     FormsModule,
     SelectButtonModule,
