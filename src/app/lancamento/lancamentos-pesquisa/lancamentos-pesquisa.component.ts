@@ -16,7 +16,15 @@ export class LancamentosPesquisaComponent {
   constructor(private lancamentoService: LancamentoService) {}
 
   public pesquisar() {
-    this.filtroLancamento.pagina.page = 0;
+    
+    this.lancamentoService.nextFiltro(this.filtroLancamento);
+  }
+
+  public limparFiltro(){
+    this.filtroLancamento.descricao = '';
+    this.filtroLancamento.dataVencimentoDe = null;
+    this.filtroLancamento.dataVencimentoAte = null;   
+
     this.lancamentoService.nextFiltro(this.filtroLancamento);
   }
 

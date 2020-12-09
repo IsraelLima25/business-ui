@@ -26,14 +26,12 @@ export class ListaLancamentosComponent   {
         this.filtroLancamento.dataVencimentoDe = filtro.dataVencimentoDe;
         this.filtroLancamento.dataVencimentoAte = filtro.dataVencimentoAte;
         this.pesquisar();
-      }
-      
+      }      
     });
   }
 
-  pesquisar(pagina = 0) {
+  pesquisar(pagina = 0) {   
     this.filtroLancamento.pagina.page = pagina;
-    console.log(this.filtroLancamento);
     this.lancamentoService.pesquisar(this.filtroLancamento)
     .then(resposta => {
       this.totalRegistros = resposta.total;
@@ -41,7 +39,7 @@ export class ListaLancamentosComponent   {
     })
   }
 
-  aoMudarPagina(event: LazyLoadEvent) {
+  aoMudarPagina(event: LazyLoadEvent) {    
     const pagina = event.first / event.rows;
     this.pesquisar(pagina);
   }

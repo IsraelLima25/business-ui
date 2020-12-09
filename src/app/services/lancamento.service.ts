@@ -28,6 +28,24 @@ export class LancamentoService {
 
   public pesquisar(filtro: FiltroLancamento): Promise<any> {
 
+    const params = this.addParams(filtro);
+
+    return this.http.get(this.lancamentosUrl, { params })
+      .toPromise()
+      .then(response => {
+        const responseJson = response.json();
+        const lancamentos = responseJson.content;
+
+        const resultado = {
+          lancamentos : lancamentos,
+          total: responseJson.totalElements
+        }
+        return resultado;
+      });
+  }
+
+  private addParams(filtro):URLSearchParams {
+    
     const params = new URLSearchParams();
 
     if (filtro.descricao) {
@@ -45,18 +63,8 @@ export class LancamentoService {
     params.set('size', filtro.pagina.size + '');
     params.set('page', filtro.pagina.page + '');
 
-    return this.http.get(this.lancamentosUrl, { params })
-    .toPromise()
-    .then(response => {
-      const responseJson = response.json();
-      const lancamentos = responseJson.content;
+    return params;
 
-      const resultado = {
-        lancamentos : lancamentos,
-        total: responseJson.totalElements
-      }
-      return resultado;
-    });
   }
 
 }
