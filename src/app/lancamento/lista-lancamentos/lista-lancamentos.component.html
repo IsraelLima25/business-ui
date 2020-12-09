@@ -1,14 +1,18 @@
 <div class="ui-g">
     <div class="ui-g-12">
-        <p-dataTable [value]="lancamentos" [paginator]="true" [rows]="2" [responsive]="true">
-            <p-column field="pessoa" header="Pessoa"></p-column>
+        <p-dataTable [value]="lancamentos" emptyMessage="Nenhum lançamento encontrado" [responsive]="true" [paginator]="true" [rows]="filtroLancamento.pagina.size" [lazy]="true" [totalRecords]="totalRegistros" (onLazyLoad)="aoMudarPagina($event)">
+            <p-column field="pessoa.nome" header="Pessoa"></p-column>
             <p-column field="descricao" header="Descrição"></p-column>
             <p-column styleClass="col-data" field="dataVencimento" header="Vencimento">
                 <ng-template let-lanc="rowData" pTemplate="body">
                     <span>{{lanc.dataVencimento | date:'dd/MM/y'}}</span>
                 </ng-template>
             </p-column>
-            <p-column styleClass="col-data" field="dataPagamento" header="Pagamento"></p-column>
+            <p-column styleClass="col-data" field="dataPagamento" header="Pagamento">
+                <ng-template let-lanc="rowData" pTemplate="body">
+                    <span>{{lanc.dataPagamento | date:'dd/MM/y'}}</span>
+                </ng-template>
+            </p-column>
             <p-column styleClass="col-valor" field="valor" header="Valor">
                 <ng-template let-lanc="rowData" pTemplate="body">
                     <span [ngStyle]="{color : lanc.tipo === 'DESPESA' ? 'red' : 'blue'}">

@@ -3,22 +3,25 @@
         <div class="ui-g-12">
             <h1>Lançamentos</h1>
         </div>
-        <div class="ui-g-12 ui-fluid">
-            <label>Descrição</label>
-            <input pInputText type="text">
-        </div>
-        <div class="ui-g-12">
+        <form (ngSubmit)="pesquisar()">
+            <div class="ui-g-12 ui-fluid">
+                <label>Descrição</label>
+                <input pInputText name="descricao" [(ngModel)]="filtroLancamento.descricao" type="text">
+            </div>
+            <div class="ui-g-12">
 
-            <label class="block">Vencimento</label>
-            <input pInputText class="sizeWidth" type="text">
-            <label>até</label>
-            <input pInputText class="sizeWidth" type="text">
+                <label class="block">Vencimento</label>
+                <p-calendar name="dataVencimentoDe" [(ngModel)]="filtroLancamento.dataVencimentoDe" dateFormat="dd/mm/yyyy" [inputStyle]="{ width: '95px' }"></p-calendar>
+                <label>até</label>
+                <p-calendar name="dataVencimentoAte" [(ngModel)]="filtroLancamento.dataVencimentoAte" dateFormat="dd/mm/yyyy" [inputStyle]="{ width: '95px' }"></p-calendar>
 
-        </div>
-        <div class="ui-g-12">
-            <button pButton type="submit" label="Pesquisar"></button>
-        </div>
-        <app-lista-lancamentos [lancamentos]="lancamentos"></app-lista-lancamentos>
+            </div>
+            <div class="ui-g-12">
+                <button pButton type="submit" label="Pesquisar"></button>
+            </div>
+        </form>
+
+        <app-lista-lancamentos></app-lista-lancamentos>
     </div>
     <div class="ui-g-12">
         <button pButton type="submit" label="Novo lançamento"></button>

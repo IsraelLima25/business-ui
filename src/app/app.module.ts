@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
 
 import { LancamentoModule } from './lancamento/lancamento.module';
 import { PessoaModule } from './pessoa/pessoa.module';
@@ -9,9 +10,11 @@ import { CoreModule } from './core/core.module';
 
 import { AppComponent } from './app.component';
 
+import { LancamentoService } from './services/lancamento.service';
+
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -19,9 +22,10 @@ import { AppComponent } from './app.component';
     PessoaModule,
     SharedModule,
     CoreModule,
+    HttpModule,
     FormsModule
   ],
-  providers: [],
+  providers: [LancamentoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

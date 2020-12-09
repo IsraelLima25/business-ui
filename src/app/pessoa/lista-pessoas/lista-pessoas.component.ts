@@ -7,6 +7,6 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ListaPessoasComponent {
 
-  @Input() pessoas: [''];
+  @Input() pessoas = [];
 
 }
