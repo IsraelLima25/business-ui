@@ -3,18 +3,22 @@
         <div class="ui-g-12">
             <h1>Pessoas</h1>
         </div>
-        <div class="ui-g-12 ui-fluid">
-            <label>Nome</label>
-            <input pInputText type="text">
-        </div>
-        <div class="ui-g-12">
-            <button pButton type="submit" label="Pesquisar"></button>
-        </div>
-    </div>
+        <form (ngSubmit)="pesquisar()">
 
-    <app-lista-pessoas [pessoas]="pessoas"></app-lista-pessoas>
+            <div class="ui-g-12 ui-fluid">
+                <label>Nome</label>
+                <input pInputText name="nome" [(ngModel)]="filtro.nome" type="text">
+            </div>
+            <div class="ui-g-12">
+                <button pButton type="submit" label="Pesquisar"></button>
+                <button pButton type="button" (click)="limparFiltro()" label="Limpar Filtro"></button>
+            </div>
+        </form>
+    </div>
+    <app-lista-pessoas></app-lista-pessoas>
 
     <div class="ui-g-12">
         <button pButton type="submit" label="Nova Pessoa"></button>
     </div>
+
 </div>

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FiltroPessoa } from 'app/models/FiltroPessoa.model';
+import { PessoaService } from 'app/services/pessoa.service';
 
 @Component({
   selector: 'app-pessoas-pesquisa',
@@ -7,12 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PessoasPesquisaComponent {
 
-  pessoas = [
-    {nome : 'Israel Filho', cidade : 'Salvador', estado : 'Bahia', status : true},
-    {nome : 'João Vitor', cidade : 'Salvador', estado : 'Bahia', status : true},
-    {nome : 'Welson Amaral', cidade : 'Rio de Janeiro', estado : 'Rio de Janeiro', status : false},
-    {nome : 'Ruan Conceição', cidade : 'Salvador', estado : 'Salvador', status : true}
-  ]
+ private filtro = new FiltroPessoa();
 
+  constructor(private pessoaService: PessoaService) {}
+
+  pesquisar(){
+      this.pessoaService.nextFiltro(this.filtro);
+  }
+
+  limparFiltro(){
+    this.filtro.nome = '';
+    this.pessoaService.nextFiltro(this.filtro);
+  }
 
 }

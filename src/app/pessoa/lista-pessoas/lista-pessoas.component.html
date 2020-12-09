@@ -1,9 +1,9 @@
 <div class="ui-g">
     <div class="ui-g-12">
-        <p-dataTable [value]="pessoas" [paginator]="true" [rows]="2" [responsive]="true">
+        <p-dataTable [value]="pessoas" emptyMessage="Nenhuma pessoa encontrada" [responsive]="true" [paginator]="true" [rows]="filtroPessoa.pagina.size" [lazy]="true" [totalRecords]="totalRegistros" (onLazyLoad)="aoMudarPagina($event)">
             <p-column field="nome" header="Nome"></p-column>
-            <p-column field="cidade" header="Cidade"></p-column>
-            <p-column field="estado" header="Estado"></p-column>
+            <p-column field="endereco.cidade" header="Cidade"></p-column>
+            <p-column field="endereco.estado" header="Estado"></p-column>
             <p-column field="status" header="Status">
                 <ng-template let-pess="rowData" pTemplate="body">
                     <div *ngIf="pess.status; else elseStatus">
