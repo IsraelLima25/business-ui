@@ -27,9 +27,15 @@ export class PessoaService {
     return this.filterPessoa.asObservable();
   }
 
+  excluir(pessoa: any){
+
+    return this.http.delete(`${this.pessoaUrl}/${pessoa.codigo}`).toPromise()
+    .then(resposta => null)    
+  }
+
   pesquisar(filtroPessoa: FiltroPessoa): Promise<any>{
     
-    const params = this.addParams(filtroPessoa);
+    const params = this.addParamsFiltroPesquisa(filtroPessoa);
     
     return this.http.get(this.pessoaUrl, { params }).toPromise()
     .then(resposta => {
@@ -46,7 +52,7 @@ export class PessoaService {
 
   }
 
-  private addParams(filtroPessoa: FiltroPessoa): URLSearchParams {
+  private addParamsFiltroPesquisa(filtroPessoa: FiltroPessoa): URLSearchParams {
     
     const params = new URLSearchParams();
 

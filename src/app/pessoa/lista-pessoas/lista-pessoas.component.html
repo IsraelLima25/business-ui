@@ -1,6 +1,6 @@
 <div class="ui-g">
     <div class="ui-g-12">
-        <p-dataTable [value]="pessoas" emptyMessage="Nenhuma pessoa encontrada" [responsive]="true" [paginator]="true" [rows]="filtroPessoa.pagina.size" [lazy]="true" [totalRecords]="totalRegistros" (onLazyLoad)="aoMudarPagina($event)">
+        <p-dataTable [value]="pessoas" #tabela emptyMessage="Nenhuma pessoa encontrada" [responsive]="true" [paginator]="true" [rows]="filtroPessoa.pagina.size" [lazy]="true" [totalRecords]="totalRegistros" (onLazyLoad)="aoMudarPagina($event)">
             <p-column field="nome" header="Nome"></p-column>
             <p-column field="endereco.cidade" header="Cidade"></p-column>
             <p-column field="endereco.estado" header="Estado"></p-column>
@@ -15,9 +15,9 @@
                 </ng-template>
             </p-column>
             <p-column styleClass="col-acoes">
-                <ng-template pTemplate="body">
+                <ng-template let-pessoa="rowData" pTemplate="body">
                     <a pButton pTooltip="Editar" tooltipPosition="top" icon="fa-pencil"></a>
-                    <button pButton pTooltip="Excluir" tooltipPosition="top" icon="fa-trash"></button>
+                    <button pButton pTooltip="Excluir" (click)="excluir(pessoa)" tooltipPosition="top" icon="fa-trash"></button>
                 </ng-template>
             </p-column>
         </p-dataTable>

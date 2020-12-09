@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FiltroPessoa } from 'app/models/FiltroPessoa.model';
 import { PessoaService } from 'app/services/pessoa.service';
 import { LazyLoadEvent } from 'primeng/components/common/lazyloadevent';
@@ -15,6 +15,8 @@ export class ListaPessoasComponent implements OnInit {
   filtroPessoa = new FiltroPessoa();
 
   totalRegistros;
+  
+  @ViewChild('tabela') grid;
 
   constructor(private pessoaService: PessoaService) {
     this.filtroPessoa.pagina.size = 5;
@@ -25,6 +27,7 @@ export class ListaPessoasComponent implements OnInit {
       if(filtro != undefined){
         this.filtroPessoa.nome = filtro.nome;
         this.pesquisar();
+        this.grid.first = 0;
       }
     })
   }
@@ -38,8 +41,20 @@ export class ListaPessoasComponent implements OnInit {
     });
   }
 
+  excluir(pessoa: any){
+    
+    this.pessoaService.excluir(pessoa)
+    .then(() => {
+      if(this.grid.first === 0){
+        this.pesquisar();
+      }else{
+        this.grid.first = 0;
+      }
+    })
+  
+  }
+
   aoMudarPagina(event: LazyLoadEvent){
-    console.log('mudei');
     const pagina = event.first / event.rows;
     this.pesquisar(pagina);
   }
