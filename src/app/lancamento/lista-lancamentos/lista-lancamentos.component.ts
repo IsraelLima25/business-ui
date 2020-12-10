@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
+
+import { LazyLoadEvent } from 'primeng/components/common/lazyloadevent';
+
 import { FiltroLancamento } from 'app/models/FiltroLancamento.model';
 import { LancamentoService } from 'app/services/lancamento.service';
-import { LazyLoadEvent } from 'primeng/components/common/lazyloadevent';
 
 @Component({
   selector: 'app-lista-lancamentos',

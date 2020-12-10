@@ -1,9 +1,11 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
+
+import { ToastyService } from 'ng2-toasty';
+import { ConfirmationService } from 'primeng/primeng';
+import { LazyLoadEvent } from 'primeng/components/common/lazyloadevent';
+
 import { FiltroPessoa } from 'app/models/FiltroPessoa.model';
 import { PessoaService } from 'app/services/pessoa.service';
-import { ToastyService } from 'ng2-toasty';
-import { LazyLoadEvent } from 'primeng/components/common/lazyloadevent';
-import { ConfirmationService } from 'primeng/primeng';
 
 @Component({
   selector: 'app-lista-pessoas',

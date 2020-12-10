@@ -7,6 +7,7 @@ import { FiltroPessoa } from 'app/models/FiltroPessoa.model';
 import 'rxjs/add/operator/toPromise';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs';
+import { ErroHandlerService } from './erro-handler.service';
 
 @Injectable()
 export class PessoaService {
@@ -17,7 +18,7 @@ export class PessoaService {
 
   filtroPessoa: FiltroPessoa;
 
-  constructor(private http: Http) {}
+  constructor(private http: Http, private handlerError: ErroHandlerService) {}
 
   public nextFiltro(filtro) {
     this.filterPessoa.next(filtro);
@@ -30,7 +31,8 @@ export class PessoaService {
   excluir(pessoa: any){
 
     return this.http.delete(`${this.pessoaUrl}/${pessoa.codigo}`).toPromise()
-    .then(resposta => null)    
+    .then(resposta => null)
+    .catch(err => this.handlerError.handler(err))    
   }
 
   pesquisar(filtroPessoa: FiltroPessoa): Promise<any>{
@@ -49,7 +51,7 @@ export class PessoaService {
 
       return resultado;
     })
-
+    .catch(err => this.handlerError.handler(err))
   }
 
   private addParamsFiltroPesquisa(filtroPessoa: FiltroPessoa): URLSearchParams {
