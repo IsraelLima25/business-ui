@@ -67,7 +67,7 @@ export class ListaPessoasComponent implements OnInit {
   confirm(pessoa){
     
     this.confirmationService.confirm({
-      message: 'Tem certeza que deseja excluir',
+      message: 'Tem certeza que deseja excluir?',
       accept: () => {
         this.excluir(pessoa);
       }      
@@ -85,8 +85,7 @@ export class ListaPessoasComponent implements OnInit {
       }
 
       this.toastyService.success('Pessoa excluida com sucesso');
-    })
-  
+    })  
   }
 
   aoMudarPagina(event: LazyLoadEvent){

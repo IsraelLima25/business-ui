@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Http, HttpModule } from '@angular/http';
+import { Http } from '@angular/http';
 import { FiltroLancamento } from 'app/models/FiltroLancamento.model';
 import { URLSearchParams } from '@angular/http';
 
 import * as moment from 'moment'
-
 import 'rxjs/add/operator/toPromise';
+
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs';
+import { ErroHandlerService } from './erro-handler.service';
 
 @Injectable()
 export class LancamentoService {
@@ -16,7 +17,7 @@ export class LancamentoService {
   
   private filter = new BehaviorSubject<FiltroLancamento>(undefined);
 
-  constructor(private http: Http) { }
+  constructor(private http: Http, private handlerError: ErroHandlerService) { }
 
   public nextFiltro(filtro) {
     this.filter.next(filtro);
@@ -65,6 +66,12 @@ export class LancamentoService {
 
     return params;
 
+  }
+
+  excluir(codigo){
+    return this.http.delete(`${this.lancamentosUrl}/${codigo}`).toPromise()
+    .then(resposta => null)
+    .catch(err => this.handlerError.handler(err))    
   }
 
 }

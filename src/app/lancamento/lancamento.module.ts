@@ -18,6 +18,7 @@ import { LancamentosPesquisaComponent } from './lancamentos-pesquisa/lancamentos
 import { ListaLancamentosComponent } from './lista-lancamentos/lista-lancamentos.component';
 import { LancamentoCadastroComponent } from './lancamento-cadastro/lancamento-cadastro.component';
 import { LancamentoService } from 'app/services/lancamento.service';
+import { CategoriaService } from 'app/services/categoria.service';
 
 @NgModule({
   imports: [
@@ -45,6 +46,6 @@ import { LancamentoService } from 'app/services/lancamento.service';
     LancamentosPesquisaComponent,
     ListaLancamentosComponent
   ],
-  providers: [ LancamentoService ]
+  providers: [ LancamentoService, CategoriaService ]
 })
 export class LancamentoModule { }

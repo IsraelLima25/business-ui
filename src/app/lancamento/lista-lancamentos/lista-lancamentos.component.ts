@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 
 import { LazyLoadEvent } from 'primeng/components/common/lazyloadevent';
 
 import { FiltroLancamento } from 'app/models/FiltroLancamento.model';
 import { LancamentoService } from 'app/services/lancamento.service';
+import { ConfirmationService } from 'primeng/primeng';
+import { ToastyService } from 'ng2-toasty';
 
 @Component({
   selector: 'app-lista-lancamentos',
@@ -16,8 +18,10 @@ export class ListaLancamentosComponent   {
   lancamentos = [];
   filtroLancamento = new FiltroLancamento();
   totalRegistros;
+  @ViewChild('tabela') grid;
 
-  constructor(private lancamentoService: LancamentoService) {
+  constructor(private lancamentoService: LancamentoService, private confirmationService: ConfirmationService,
+    private toastyService: ToastyService) {
     this.lancamentos = [];
     this.filtroLancamento.pagina.size = 5;
   }
@@ -30,6 +34,26 @@ export class ListaLancamentosComponent   {
         this.pesquisar();
       }      
     });
+  }
+
+  confirm(pessoa: any){
+    this.confirmationService.confirm({
+      message: 'Tem certeza que deseja excluir?',
+      accept: () =>{ this.excluir(pessoa) }
+    })
+  }
+
+  excluir(pessoa){
+    this.lancamentoService.excluir(pessoa.codigo)
+    .then(() => {
+      if(this.grid.first === 0){
+        this.pesquisar();
+      }else{
+        this.grid.first = 0;
+      }
+
+      this.toastyService.success('Pessoa excluida com sucesso');
+    })
   }
 
   pesquisar(pagina = 0) {   

@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { FiltroLancamento } from 'app/models/FiltroLancamento.model';
+import { CategoriaService } from 'app/services/categoria.service';
 import { LancamentoService } from 'app/services/lancamento.service';
 
 @Component({
@@ -14,7 +15,7 @@ export class LancamentosPesquisaComponent {
   filtroLancamento = new FiltroLancamento();
   totalRegistros;
 
-  constructor(private lancamentoService: LancamentoService) {}
+  constructor(private lancamentoService: LancamentoService, private categoriaService: CategoriaService) {}
 
   public pesquisar() {
     
