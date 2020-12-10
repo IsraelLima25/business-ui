@@ -27,6 +27,24 @@ export class ListaPessoasComponent implements OnInit {
     this.filtroPessoa.pagina.size = 5;
   }
 
+  desativar(pessoa){    
+    this.pessoaService.desativar(pessoa.codigo).
+    then(()=>{
+      let paginaAtual = this.grid.first / this.filtroPessoa.pagina.size;
+      this.pesquisar(paginaAtual);
+      this.toastyService.success('Pessoa desativada com sucesso.');
+    });
+  }
+
+  ativar(pessoa){    
+    this.pessoaService.ativar(pessoa.codigo).
+    then(()=>{
+      let paginaAtual = this.grid.first / this.filtroPessoa.pagina.size;
+      this.pesquisar(paginaAtual);
+      this.toastyService.success('Pessoa ativada com sucesso.');
+    });
+  }
+
   ngOnInit(): void {
     this.pessoaService.getFilter().subscribe(filtro => {
       if(filtro != undefined){

@@ -4,13 +4,13 @@
             <p-column field="nome" header="Nome"></p-column>
             <p-column field="endereco.cidade" header="Cidade"></p-column>
             <p-column field="endereco.estado" header="Estado"></p-column>
-            <p-column field="status" header="Status">
+            <p-column field="ativo" header="Status">
                 <ng-template let-pess="rowData" pTemplate="body">
-                    <div *ngIf="pess.status; else elseStatus">
-                        <a pTooltip="Desativar" tooltipPosition="top" href="#">Ativo</a>
+                    <div *ngIf="pess.ativo; else elseStatus">
+                        <a pTooltip="Desativar" (click)="desativar(pess)" href="#" tooltipPosition="top">Ativo</a>
                     </div>
                     <ng-template #elseStatus>
-                        <a pTooltip="Ativar" tooltipPosition="top" href="#">Inativo</a>
+                        <a pTooltip="Ativar" (click)="ativar(pess)" href="#" tooltipPosition="top">Inativo</a>
                     </ng-template>
                 </ng-template>
             </p-column>

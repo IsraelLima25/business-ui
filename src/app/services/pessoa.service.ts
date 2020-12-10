@@ -28,6 +28,18 @@ export class PessoaService {
     return this.filterPessoa.asObservable();
   }
 
+  ativar(codigo){
+    return this.http.put(`${this.pessoaUrl}/ativar/${codigo}`, null).toPromise()
+    .then(() => null)
+    .catch(err => this.handlerError.handler(err));
+  }
+
+  desativar(codigo){
+    return this.http.put(`${this.pessoaUrl}/desativar/${codigo}`, null).toPromise()
+    .then(() => null)
+    .catch(err => this.handlerError.handler(err));
+  }
+
   excluir(pessoa: any){
 
     return this.http.delete(`${this.pessoaUrl}/${pessoa.codigo}`).toPromise()

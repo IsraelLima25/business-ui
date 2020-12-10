@@ -10,6 +10,7 @@ import { DataTableModule } from 'primeng/components/datatable/datatable';
 import { InputTextModule } from 'primeng/components/inputtext/inputtext';
 import { InputTextareaModule } from 'primeng/components/inputtextarea/inputtextarea';
 import { ButtonModule } from 'primeng/components/button/button';
+import { TooltipModule } from 'primeng/components/tooltip/tooltip';
 
 import { SharedModule } from 'app/shared/shared.module';
 import { ListaPessoasComponent } from './lista-pessoas/lista-pessoas.component';
@@ -29,6 +30,7 @@ import { PessoaService } from 'app/services/pessoa.service';
     InputTextModule,
     InputTextareaModule,
     ButtonModule,
+    TooltipModule,
     SharedModule
   ],
   declarations: [
