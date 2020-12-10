@@ -1,7 +1,9 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FiltroPessoa } from 'app/models/FiltroPessoa.model';
 import { PessoaService } from 'app/services/pessoa.service';
+import { ToastyService } from 'ng2-toasty';
 import { LazyLoadEvent } from 'primeng/components/common/lazyloadevent';
+import { ConfirmationService } from 'primeng/primeng';
 
 @Component({
   selector: 'app-lista-pessoas',
@@ -18,7 +20,8 @@ export class ListaPessoasComponent implements OnInit {
   
   @ViewChild('tabela') grid;
 
-  constructor(private pessoaService: PessoaService) {
+  constructor(private pessoaService: PessoaService, private toastyService: ToastyService,
+    private confirmationService: ConfirmationService) {
     this.filtroPessoa.pagina.size = 5;
   }
 
@@ -41,8 +44,18 @@ export class ListaPessoasComponent implements OnInit {
     });
   }
 
-  excluir(pessoa: any){
+  confirm(pessoa){
     
+    this.confirmationService.confirm({
+      message: 'Tem certeza que deseja excluir',
+      accept: () => {
+        this.excluir(pessoa);
+      }      
+    })    
+  }
+
+  excluir(pessoa: any){
+
     this.pessoaService.excluir(pessoa)
     .then(() => {
       if(this.grid.first === 0){
@@ -50,6 +63,8 @@ export class ListaPessoasComponent implements OnInit {
       }else{
         this.grid.first = 0;
       }
+
+      this.toastyService.success('Pessoa excluida com sucesso');
     })
   
   }

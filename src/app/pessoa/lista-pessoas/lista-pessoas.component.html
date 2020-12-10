@@ -17,7 +17,7 @@
             <p-column styleClass="col-acoes">
                 <ng-template let-pessoa="rowData" pTemplate="body">
                     <a pButton pTooltip="Editar" tooltipPosition="top" icon="fa-pencil"></a>
-                    <button pButton pTooltip="Excluir" (click)="excluir(pessoa)" tooltipPosition="top" icon="fa-trash"></button>
+                    <button pButton pTooltip="Excluir" (click)="confirm(pessoa)" tooltipPosition="top" icon="fa-trash"></button>
                 </ng-template>
             </p-column>
         </p-dataTable>
