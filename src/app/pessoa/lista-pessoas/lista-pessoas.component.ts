@@ -6,6 +6,7 @@ import { LazyLoadEvent } from 'primeng/components/common/lazyloadevent';
 
 import { FiltroPessoa } from 'app/models/FiltroPessoa.model';
 import { PessoaService } from 'app/services/pessoa.service';
+import { ErroHandlerService } from 'app/services/erro-handler.service';
 
 @Component({
   selector: 'app-lista-pessoas',
@@ -23,7 +24,7 @@ export class ListaPessoasComponent implements OnInit {
   @ViewChild('tabela') grid;
 
   constructor(private pessoaService: PessoaService, private toastyService: ToastyService,
-    private confirmationService: ConfirmationService) {
+    private confirmationService: ConfirmationService, private handlerService: ErroHandlerService) {
     this.filtroPessoa.pagina.size = 5;
   }
 
@@ -75,17 +76,20 @@ export class ListaPessoasComponent implements OnInit {
   }
 
   excluir(pessoa: any){
-
+    
     this.pessoaService.excluir(pessoa)
-    .then(() => {
-      if(this.grid.first === 0){
-        this.pesquisar();
+    .then((response: any) => {
+      if(response.status === 204){
+         if(this.grid.first === 0){
+           this.pesquisar();
+         }else{
+           this.grid.first = 0;
+         }
+         this.toastyService.success(response.mensagem);        
       }else{
-        this.grid.first = 0;
+        this.handlerService.handler(response.mensagem);
       }
-
-      this.toastyService.success('Pessoa excluida com sucesso');
-    })  
+    })     
   }
 
   aoMudarPagina(event: LazyLoadEvent){

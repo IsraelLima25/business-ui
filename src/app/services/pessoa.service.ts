@@ -8,6 +8,7 @@ import 'rxjs/add/operator/toPromise';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs';
 import { ErroHandlerService } from './erro-handler.service';
+import { Response } from '../models/Response.model';
 
 @Injectable()
 export class PessoaService {
@@ -41,10 +42,10 @@ export class PessoaService {
   }
 
   excluir(pessoa: any){
-
-    return this.http.delete(`${this.pessoaUrl}/${pessoa.codigo}`).toPromise()
-    .then(resposta => null)
-    .catch(err => this.handlerError.handler(err))    
+    return this.http.delete(`${this.pessoaUrl}/${pessoa.codigo}`).toPromise()    
+    .then(() => { return new Response(204, 'Pessoa excluída com sucesso.')
+    })    
+    .catch(err => {return new Response(err.json().status,err.json().msg)})
   }
 
   pesquisar(filtroPessoa: FiltroPessoa): Promise<any>{
