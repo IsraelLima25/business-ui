@@ -1,5 +1,5 @@
-export interface Categoria {
+export class Categoria {
 
-    codigo: number;
-    descricao: string;
+    public codigo: string;
+    public descricao: string;
 }

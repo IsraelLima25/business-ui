@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Headers, Http } from '@angular/http';
 import { FiltroLancamento } from 'app/models/FiltroLancamento.model';
 import { URLSearchParams } from '@angular/http';
 
-import * as moment from 'moment'
+import * as moment from 'moment';
 import 'rxjs/add/operator/toPromise';
 
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs';
 import { ErroHandlerService } from './erro-handler.service';
+import { Lancamento } from 'app/models/Lancamento.model';
 
 @Injectable()
 export class LancamentoService {
@@ -72,6 +73,15 @@ export class LancamentoService {
     return this.http.delete(`${this.lancamentosUrl}/${codigo}`).toPromise()
     .then(resposta => null)
     .catch(err => this.handlerError.handler(err))    
+  }
+
+  lancar(lancamento: Lancamento):Promise<Lancamento>{
+     const headers = new Headers();
+     headers.append('Content-Type','application/json');
+    
+     return this.http.post(this.lancamentosUrl, JSON.stringify(lancamento), { headers } )
+     .toPromise()
+     .then(response => response.json())      
   }
 
 }

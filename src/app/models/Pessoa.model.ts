@@ -1,10 +1,15 @@
 import { Endereco } from './Endereco.model';
 
-export interface Pessoa {
+export class Pessoa {
 
-    codigo: number;
+    public codigo: number;
     ativo: boolean;
     nome: string;
     endereco: Endereco;
+
+    constructor(){
+        this.ativo = true;
+        this.endereco = new Endereco();
+    }
 
 }

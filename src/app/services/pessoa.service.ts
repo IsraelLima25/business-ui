@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Headers, Http } from '@angular/http';
 import { URLSearchParams } from '@angular/http';
 
 import { FiltroPessoa } from 'app/models/FiltroPessoa.model';
@@ -9,6 +9,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs';
 import { ErroHandlerService } from './erro-handler.service';
 import { Response } from '../models/Response.model';
+import { Pessoa } from 'app/models/Pessoa.model';
 
 @Injectable()
 export class PessoaService {
@@ -80,6 +81,15 @@ export class PessoaService {
         
     return params;
 
+  }
+
+  cadastrar(pessoa: Pessoa):Promise<Pessoa>{
+    const headers = new Headers();
+    headers.append('Content-Type','application/json');
+    return this.http.post(this.pessoaUrl,JSON.stringify(pessoa),{headers})
+    .toPromise()
+    .then(resposta => resposta.json())
+    .catch(err => this.handlerError.handler(err));
   }
 
 }

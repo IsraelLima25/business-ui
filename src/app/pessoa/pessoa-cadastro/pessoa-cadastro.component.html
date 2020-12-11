@@ -3,52 +3,54 @@
         <div class="ui-g-12 ui-fluid">
             <h1>Nova Pessoa</h1>
         </div>
-        <form #formulario="ngForm">
+        <form #formulario="ngForm" (ngSubmit)="cadastrar(formulario)">
             <div class="ui-g-12 ui-fluid">
                 <label for="nome">Nome</label>
-                <input pInputText name="nome" ngModel #nome="ngModel" required minlength="5" id="nome" type="text">
+                <input pInputText name="nome" [(ngModel)]="pessoa.nome" ngModel #nome="ngModel" required minlength="5" id="nome" type="text">
                 <app-message [control]="nome" text="Campo Obrigatório" severity="error" typeError="required"></app-message>
                 <app-message [control]="nome" typeError="minlength" text="Mínimo de {{ nome?.errors?.minlength?.requiredLength }} caracteres" severity="error"></app-message>
             </div>
             <div class="ui-g-12 ui-md-10 ui-fluid">
                 <label for="logradouro">Logradouro</label>
-                <input pInputText id="logradouro" name="logradouro" ngModel #logradouro="ngModel" required type="text">
+                <input pInputText id="logradouro" [(ngModel)]="pessoa.endereco.logradouro" name="logradouro" ngModel #logradouro="ngModel" required type="text">
                 <app-message [control]="logradouro" text="Campo Obrigatório" severity="error" typeError="required"></app-message>
             </div>
             <div class="ui-g-12 ui-md-2 ui-fluid">
                 <label for="numero">Número</label>
-                <input pInputText name="numero" ngModel #numero="ngModel" required id="numero" type="number">
+                <input pInputText name="numero" [(ngModel)]="pessoa.endereco.numero" ngModel #numero="ngModel" required id="numero" type="number">
                 <app-message [control]="numero" text="Campo Obrigatório" severity="error" typeError="required"></app-message>
             </div>
 
             <div class="ui-g-12 ui-md-8 ui-fluid">
                 <label for="complemento">Complemento</label>
-                <input pInputText name="complemento" ngModel #complemento="ngModel" required id="complemento" type="text">
+                <input pInputText name="complemento" [(ngModel)]="pessoa.endereco.complemento" ngModel #complemento="ngModel" required id="complemento" type="text">
                 <app-message [control]="complemento" text="Campo Obrigatório" severity="error" typeError="required"></app-message>
             </div>
 
             <div class="ui-g-12 ui-md-2 ui-fluid">
                 <label for="bairro">Bairro</label>
-                <input pInputText name="bairro" ngModel #bairro="ngModel" required id="bairro" type="text">
+                <input pInputText name="bairro" [(ngModel)]="pessoa.endereco.bairro" ngModel #bairro="ngModel" required id="bairro" type="text">
                 <app-message [control]="bairro" text="Campo Obrigatório" severity="error" typeError="required"></app-message>
             </div>
 
             <div class="ui-g-12 ui-md-2 ui-fluid">
                 <label for="cep">Cep</label>
-                <p-inputMask id="cep" name="cep" ngModel #cep="ngModel" required mask="99.999-999"></p-inputMask>
+                <p-inputMask id="cep" [(ngModel)]="pessoa.endereco.cep" name="cep" ngModel #cep="ngModel" required mask="99.999-999"></p-inputMask>
                 <app-message [control]="cep" text="Campo Obrigatório" severity="error" typeError="required"></app-message>
             </div>
 
             <div class="ui-g-12 ui-md-6 ui-fluid">
                 <label for="cidade">Cidade</label>
-                <input pInputText name="cidade" ngModel #cidade="ngModel" required id="cidade" type="text">
+                <input pInputText name="cidade" [(ngModel)]="pessoa.endereco.cidade" ngModel #cidade="ngModel" required id="cidade" type="text">
                 <app-message [control]="cidade" text="Campo Obrigatório" severity="error" typeError="required"></app-message>
             </div>
 
             <div class="ui-g-12 ui-md-6 ui-fluid">
                 <label for="estado">Estado</label>
-                <input pInputText name="estado" ngModel #estado="ngModel" required id="estado" type="text">
+                <input pInputText name="estado" [(ngModel)]="pessoa.endereco.estado" ngModel maxlength="3" #estado="ngModel" required id="estado" type="text">
                 <app-message [control]="estado" text="Campo Obrigatório" severity="error" typeError="required"></app-message>
+                <app-message [control]="estado" typeError="maxlength" text="Máximo de {{ estado?.errors?.maxlength?.requiredLength }} caracteres" severity="error"></app-message>
+
             </div>
 
             <div class="ui-g-12">
