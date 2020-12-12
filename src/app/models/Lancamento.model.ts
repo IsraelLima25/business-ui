@@ -6,19 +6,12 @@ export class Lancamento {
 
     public codigo: number;
     public descricao: string;
-    public dataVencimento: string;
-    public dataPagamento: string;
+    public dataVencimento: Date;
+    public dataPagamento: Date;
     public valor: number;
-    public tipo: string;
+    public tipo: string = 'DESPESA';
     public observacao: string;
-    public categoria: Categoria;
-    public pessoa: Pessoa;
-
-    constructor(){        
-        this.tipo = 'DESPESA';
-        this.observacao = '';
-        this.categoria = new Categoria();
-        this.pessoa = new Pessoa();
-    }
+    public categoria = new Categoria();
+    public pessoa= new Pessoa(); 
         
 }

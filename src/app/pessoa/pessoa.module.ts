@@ -17,6 +17,7 @@ import { ListaPessoasComponent } from './lista-pessoas/lista-pessoas.component';
 import { PessoaCadastroComponent } from './pessoa-cadastro/pessoa-cadastro.component';
 import { PessoasPesquisaComponent } from './pessoas-pesquisa/pessoas-pesquisa.component';
 import { PessoaService } from 'app/services/pessoa.service';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
@@ -31,18 +32,15 @@ import { PessoaService } from 'app/services/pessoa.service';
     InputTextareaModule,
     ButtonModule,
     TooltipModule,
-    SharedModule
+    SharedModule,
+    RouterModule
   ],
   declarations: [
     ListaPessoasComponent,
     PessoaCadastroComponent,
     PessoasPesquisaComponent
   ],
-  exports: [
-    ListaPessoasComponent,
-    PessoaCadastroComponent,
-    PessoasPesquisaComponent
-  ],
+  exports: [],
   providers: [ PessoaService ]
 })
 export class PessoaModule { }

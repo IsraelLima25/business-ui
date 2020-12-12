@@ -1,4 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 import { LazyLoadEvent } from 'primeng/components/common/lazyloadevent';
 
@@ -21,7 +22,7 @@ export class ListaLancamentosComponent   {
   @ViewChild('tabela') grid;
 
   constructor(private lancamentoService: LancamentoService, private confirmationService: ConfirmationService,
-    private toastyService: ToastyService) {
+    private toastyService: ToastyService, private title: Title) {
     this.lancamentos = [];
     this.filtroLancamento.pagina.size = 5;
   }
@@ -31,7 +32,7 @@ export class ListaLancamentosComponent   {
         this.filtroLancamento.descricao = filtro.descricao;
         this.filtroLancamento.dataVencimentoDe = filtro.dataVencimentoDe;
         this.filtroLancamento.dataVencimentoAte = filtro.dataVencimentoAte;
-        this.pesquisar();
+        this.pesquisar();        
       }      
     });
   }

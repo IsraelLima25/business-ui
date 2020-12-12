@@ -1,15 +1,8 @@
 import { Endereco } from './Endereco.model';
 
-export class Pessoa {
-
+export class Pessoa {    
     public codigo: number;
-    ativo: boolean;
-    nome: string;
-    endereco: Endereco;
-
-    constructor(){
-        this.ativo = true;
-        this.endereco = new Endereco();
-    }
-
+    public ativo: boolean = true;
+    public nome: string;
+    public endereco = new Endereco();
 }

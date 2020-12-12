@@ -8,6 +8,8 @@ import { PessoaModule } from './pessoa/pessoa.module';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
 import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
+
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { AppComponent } from './app.component';
     SharedModule,
     CoreModule,
     HttpModule,
-    FormsModule    
+    FormsModule,
+    AppRoutingModule
+      
   ],
   providers: [ {provide: LOCALE_ID, useValue:'pt-BR'} ],
   bootstrap: [AppComponent]

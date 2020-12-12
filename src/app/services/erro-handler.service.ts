@@ -11,7 +11,7 @@ export class ErroHandlerService {
     if(typeof err === 'string'){
       msg = err;
     }else{
-      console.log(err);
+      console.log(err.json());
       msg = 'Erro ao processar serviço remoto. Tente novamente.'
     }
 

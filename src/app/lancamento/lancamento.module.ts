@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterModule } from '@angular/router';
 
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { SelectButtonModule } from 'primeng/components/selectbutton/selectbutton';
@@ -19,6 +20,8 @@ import { ListaLancamentosComponent } from './lista-lancamentos/lista-lancamentos
 import { LancamentoCadastroComponent } from './lancamento-cadastro/lancamento-cadastro.component';
 import { LancamentoService } from 'app/services/lancamento.service';
 import { CategoriaService } from 'app/services/categoria.service';
+import { LancamentoRoutingModule } from './lancamento-routing.module'
+import { from } from 'rxjs/observable/from';
 
 @NgModule({
   imports: [
@@ -34,18 +37,16 @@ import { CategoriaService } from 'app/services/categoria.service';
     InputTextareaModule,
     ButtonModule,
     TooltipModule,    
-    SharedModule
+    SharedModule,
+    LancamentoRoutingModule,
+    RouterModule
   ],
   declarations: [
     LancamentoCadastroComponent,
     LancamentosPesquisaComponent,
     ListaLancamentosComponent
   ],
-  exports: [
-    LancamentoCadastroComponent,
-    LancamentosPesquisaComponent,
-    ListaLancamentosComponent
-  ],
+  exports: [],
   providers: [ LancamentoService, CategoriaService ]
 })
 export class LancamentoModule { }

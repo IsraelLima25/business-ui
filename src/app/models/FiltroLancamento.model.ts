@@ -4,10 +4,8 @@ export class FiltroLancamento {
     public descricao: string;
     public dataVencimentoDe: Date;
     public dataVencimentoAte: Date;
-    public pagina: Pagina;
+    public pagina = new Pagina();
 
-    constructor () {
-        this.pagina = new Pagina();
-    }
+
 
 }

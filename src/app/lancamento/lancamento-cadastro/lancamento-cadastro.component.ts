@@ -1,16 +1,19 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
+
+import { SelectItem } from 'primeng/components/common/selectitem';
+import { ToastyService } from 'ng2-toasty';
+import * as moment from 'moment';
+
+
 import { FiltroPessoa } from 'app/models/FiltroPessoa.model';
 import { Lancamento } from 'app/models/Lancamento.model';
 import { CategoriaService } from 'app/services/categoria.service';
 import { PessoaService } from 'app/services/pessoa.service';
-
-import { SelectItem } from 'primeng/components/common/selectitem';
-
 import { LancamentoService } from 'app/services/lancamento.service';
-import { ToastyService } from 'ng2-toasty';
 import { ErroHandlerService } from 'app/services/erro-handler.service';
-import { format } from 'url';
 
 @Component({
   selector: 'app-lancamento-cadastro',
@@ -28,38 +31,72 @@ export class LancamentoCadastroComponent implements OnInit {
   pessoas: SelectItem[];
 
   constructor(private pessoaService: PessoaService, private categoriaService: CategoriaService,
-    private lancamentoService: LancamentoService, private toastyService: ToastyService, private handlerError: ErroHandlerService) {
-   console.log('cons')
+    private lancamentoService: LancamentoService, private activatedRoute: ActivatedRoute, 
+    private toastyService: ToastyService, private handlerError: ErroHandlerService, private router: Router,
+    private title: Title) {
   }
 
   ngOnInit(): void {
     this.carregarTipoLancamento();
     this.carregarCategorias();
-    this.carregarPessoas();  
+    this.carregarPessoas();    
+    this.carregarPessoaPorCodigo();
+
+    this.title.setTitle('Cadastrar Lançamento')    
   }
 
+  get editando():Boolean{
+   return Boolean(this.lancamento.codigo);
+  }
+
+  salvar(form: FormControl){
+    if(this.editando){
+      this.atualizarLancamento();
+    }else{
+      this.lancar(form);
+    }
+  }
+  
   lancar(form: FormControl){
-    console.log(this.lancamento)
     this.lancamentoService.lancar(this.lancamento)
-    .then(() => { 
-      form.reset();
-      this.toastyService.success('Lançamento registrado com sucesso');      
+    .then((lancamentoSalvo) => {
+      this.lancamento = lancamentoSalvo;
+      this.toastyService.success('Lançamento registrado com sucesso');            
     }).catch(err=> this.handlerError.handler(err))
-  } 
+  }
+  
+  atualizarLancamento(){
+    this.lancamentoService.atualizar(this.lancamento)
+    .then(lancamentoAtualizado => {
+      this.lancamento = lancamentoAtualizado;
+      this.toastyService.success('Lançamento atualizado com sucesso');
+    })
+  }
+  
+  carregarPessoaPorCodigo(){
+    let codigo: number = this.activatedRoute.snapshot.params['codigo'];
+      if(codigo != undefined)
+        this.lancamentoService.buscarPorCodigo(codigo)
+        .then((lancamento: Lancamento) => {         
+          lancamento.dataPagamento = this.converterStringsParaData(lancamento.dataPagamento);
+          lancamento.dataVencimento = this.converterStringsParaData(lancamento.dataVencimento);
+          this.title.setTitle('Editando Lançamento');
+          this.lancamento = lancamento;        
+        });
+    }
   
   carregarTipoLancamento(){
     this.types = [];
     this.types.push({label: 'Despesa', value: 'DESPESA'});
     this.types.push({label: 'Receita', value: 'RECEITA'});  
-      
+    
     this.lancamento.tipo = 'DESPESA';
     
-   }
-
-   carregarPessoas(){  
-     console.log('carregando pessoas')    
-      this.pessoaService.pesquisar(this.filtro)
-      .then(resposta => {this.pessoas = resposta.pessoas.map(pessoa => {
+  }
+  
+  carregarPessoas(){  
+    this.pessoaService.pesquisar(this.filtro)
+    .then(resposta => {this.pessoas = resposta.pessoas.map(pessoa => {
         return {label: pessoa.nome, value: pessoa.codigo}
       })})
    }
@@ -71,5 +108,16 @@ export class LancamentoCadastroComponent implements OnInit {
      }))
    }
 
+   novo(form: FormControl){
+      form.reset();
+      setTimeout(function(){
+        this.lancamento = new Lancamento();
+      }.bind(this),1)
+      this.title.setTitle('Cadastrar')
+      this.router.navigate['/lancamentos/novo']
+   }
 
+   converterStringsParaData(dataString: any): Date{
+   return new Date(moment(dataString).format('YYYY-MM-DD'));
+  }
 }

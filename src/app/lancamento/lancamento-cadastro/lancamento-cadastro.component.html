@@ -1,20 +1,21 @@
 <div class="container">
-    <form #formulario="ngForm" (ngSubmit)="lancar(formulario)">
+    <form #formulario="ngForm" (ngSubmit)="salvar(formulario)">
         <div class="ui-g">
             <div class="ui-g-12">
-                <h1>Novo Lançamento</h1>
+                <h1>{{editando ? 'Editando' : 'Novo'}} Lançamento</h1>
             </div>
             <div class="ui-g-12">
                 <p-selectButton #tipo required name="selectType" [options]="types" [(ngModel)]="lancamento.tipo"></p-selectButton>
             </div>
             <div class="ui-g-6 ui-md-3 ui-fluid">
                 <label>Vencimento</label>
-                <p-calendar [showIcon]="true" [(ngModel)]="lancamento.dataVencimento" ngModel #dataVencimento="ngModel" name="dataVencimento" dateFormat="dd/mm/yy" required></p-calendar>
+                <p-calendar [showIcon]="true" utc="true" [(ngModel)]="lancamento.dataVencimento" ngModel #dataVencimento="ngModel" name="dataVencimento" dateFormat="dd/mm/yy" required></p-calendar>
                 <app-message [control]="dataVencimento" typeError="required" text="Campo Obrigatório" severity="error"></app-message>
             </div>
             <div class="ui-g-6 ui-md-3 ui-fluid">
                 <label>{{tipo.value === 'RECEITA' ? 'Recebimento' : 'Pagamento'}}</label>
-                <p-calendar name="dataPagamento" [(ngModel)]="lancamento.dataPagamento" [showIcon]="true" dateFormat="dd/mm/yy"></p-calendar>
+                <p-calendar name="dataPagamento" utc="true" ngModel #dataPagamento="ngModel" required [(ngModel)]="lancamento.dataPagamento" [showIcon]="true" dateFormat="dd/mm/yy"></p-calendar>
+                <app-message [control]="dataPagamento" typeError="required" text="Campo Obrigatório" severity="error"></app-message>
             </div>
             <div class="ui-g-12 ui-md-10 ui-fluid">
                 <label>Descrição</label>
@@ -42,8 +43,8 @@
             </div>
             <div class="ui-g-12">
                 <button [disabled]="!formulario.valid" pButton type="submit" label="Salvar"></button>
-                <button pButton type="button" class="ui-button-info" (click)="novo()" label="Novo"></button>
-                <a href="#">Voltar para a pesquisa</a>
+                <button pButton type="button" class="ui-button-info" (click)="novo(formulario)" label="Novo"></button>
+                <a routerLink='/'>Voltar para a pesquisa</a>
             </div>
         </div>
     </form>

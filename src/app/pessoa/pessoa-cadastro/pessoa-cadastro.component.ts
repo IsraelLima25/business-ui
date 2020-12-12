@@ -20,7 +20,7 @@ export class PessoaCadastroComponent {
   this.pessoaService.cadastrar(this.pessoa)
   .then(() => {
       this.toastyService.success('Pessoa cadastrada com sucesso');
-      form.reset();
+      form.reset();      
       this.pessoa = new Pessoa();
   })
  }
