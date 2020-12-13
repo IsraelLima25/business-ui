@@ -7,7 +7,6 @@ import { SelectItem } from 'primeng/components/common/selectitem';
 import { ToastyService } from 'ng2-toasty';
 import * as moment from 'moment';
 
-
 import { FiltroPessoa } from 'app/models/FiltroPessoa.model';
 import { Lancamento } from 'app/models/Lancamento.model';
 import { CategoriaService } from 'app/services/categoria.service';
@@ -51,25 +50,37 @@ export class LancamentoCadastroComponent implements OnInit {
 
   salvar(form: FormControl){
     if(this.editando){
+      
       this.atualizarLancamento();
     }else{
-      this.lancar(form);
+      this.lancar();
     }
   }
   
-  lancar(form: FormControl){
+  lancar(){
+    console.log('iniciando lancamento')
     this.lancamentoService.lancar(this.lancamento)
-    .then((lancamentoSalvo) => {
-      this.lancamento = lancamentoSalvo;
-      this.toastyService.success('Lançamento registrado com sucesso');            
-    }).catch(err=> this.handlerError.handler(err))
+    .then((resposta) => {
+      if(resposta.status === 400){
+        this.toastyService.error(resposta.msg);
+      }else{        
+        this.lancamento.codigo = resposta.codigo; 
+        this.toastyService.success('Lançamento cadastrado com sucesso');
+      }
+
+    }).catch((err)=> this.handlerError.handler(err))
   }
   
   atualizarLancamento(){
+    console.log('Atualizar')
     this.lancamentoService.atualizar(this.lancamento)
-    .then(lancamentoAtualizado => {
-      this.lancamento = lancamentoAtualizado;
-      this.toastyService.success('Lançamento atualizado com sucesso');
+    .then(resposta => {
+      if(resposta.status === 400){
+        this.toastyService.error(resposta.msg);
+      }else{
+        this.lancamento = this.lancamento;
+        this.toastyService.success('Lançamento atualizado com sucesso');
+      }
     })
   }
   

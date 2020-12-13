@@ -2,11 +2,11 @@ import { Component, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 
 import { LazyLoadEvent } from 'primeng/components/common/lazyloadevent';
+import { ToastyService } from 'ng2-toasty';
+import { ConfirmationService } from 'primeng/primeng';
 
 import { FiltroLancamento } from 'app/models/FiltroLancamento.model';
 import { LancamentoService } from 'app/services/lancamento.service';
-import { ConfirmationService } from 'primeng/primeng';
-import { ToastyService } from 'ng2-toasty';
 
 @Component({
   selector: 'app-lista-lancamentos',

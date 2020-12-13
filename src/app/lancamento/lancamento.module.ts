@@ -21,7 +21,6 @@ import { LancamentoCadastroComponent } from './lancamento-cadastro/lancamento-ca
 import { LancamentoService } from 'app/services/lancamento.service';
 import { CategoriaService } from 'app/services/categoria.service';
 import { LancamentoRoutingModule } from './lancamento-routing.module'
-import { from } from 'rxjs/observable/from';
 
 @NgModule({
   imports: [

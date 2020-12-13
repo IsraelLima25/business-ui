@@ -10,6 +10,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs';
 import { ErroHandlerService } from './erro-handler.service';
 import { Lancamento } from 'app/models/Lancamento.model';
+import { Response } from '../models/Response.model';
 
 @Injectable()
 export class LancamentoService {
@@ -75,13 +76,14 @@ export class LancamentoService {
     .catch(err => this.handlerError.handler(err))    
   }
 
-  lancar(lancamento: Lancamento):Promise<Lancamento>{
+  lancar(lancamento: Lancamento):Promise<any>{
      const headers = new Headers();
      headers.append('Content-Type','application/json');
     
      return this.http.post(this.lancamentosUrl, JSON.stringify(lancamento), { headers } )
      .toPromise()
-     .then(response => response.json())      
+     .then((lancamento)=> { return lancamento.json() })
+     .catch((err) => { return err.json()})  
   }
 
   buscarPorCodigo(codigo: number):Promise<Lancamento>{
@@ -93,13 +95,13 @@ export class LancamentoService {
     .catch(err => this.handlerError.handler(err));
   }
 
-  atualizar(lancamento: Lancamento):Promise<Lancamento>{
+  atualizar(lancamento: Lancamento):Promise<any>{
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
       return this.http.put(`${this.lancamentosUrl}/${lancamento.codigo}`, 
         JSON.stringify(lancamento), { headers })
         .toPromise()
-        .then(lancamentoAtualizado => lancamentoAtualizado.json())
-        .catch(err => this.handlerError.handler(err));
+        .then(lancamentoAtualizado => { return lancamentoAtualizado.json() })
+        .catch(err => { return err.json() });
   }
 }
