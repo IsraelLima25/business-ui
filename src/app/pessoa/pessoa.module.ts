@@ -18,6 +18,7 @@ import { PessoaCadastroComponent } from './pessoa-cadastro/pessoa-cadastro.compo
 import { PessoasPesquisaComponent } from './pessoas-pesquisa/pessoas-pesquisa.component';
 import { PessoaService } from 'app/services/pessoa.service';
 import { RouterModule } from '@angular/router';
+import { PessoaRoutingModule } from './pessoa-routing.module';
 
 @NgModule({
   imports: [
@@ -33,6 +34,7 @@ import { RouterModule } from '@angular/router';
     ButtonModule,
     TooltipModule,
     SharedModule,
+    PessoaRoutingModule,
     RouterModule
   ],
   declarations: [
