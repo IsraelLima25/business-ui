@@ -7,6 +7,7 @@ import { LazyLoadEvent } from 'primeng/components/common/lazyloadevent';
 import { FiltroPessoa } from 'app/models/FiltroPessoa.model';
 import { PessoaService } from 'app/services/pessoa.service';
 import { ErroHandlerService } from 'app/services/erro-handler.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-lista-pessoas',
@@ -24,7 +25,8 @@ export class ListaPessoasComponent implements OnInit {
   @ViewChild('tabela') grid;
 
   constructor(private pessoaService: PessoaService, private toastyService: ToastyService,
-    private confirmationService: ConfirmationService, private handlerService: ErroHandlerService) {
+    private confirmationService: ConfirmationService, private handlerService: ErroHandlerService,
+    private title: Title) {
     this.filtroPessoa.pagina.size = 5;
   }
 

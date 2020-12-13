@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 import { FiltroPessoa } from 'app/models/FiltroPessoa.model';
 import { PessoaService } from 'app/services/pessoa.service';
@@ -8,11 +9,15 @@ import { PessoaService } from 'app/services/pessoa.service';
   templateUrl: './pessoas-pesquisa.component.html',
   styleUrls: ['./pessoas-pesquisa.component.css']
 })
-export class PessoasPesquisaComponent {
+export class PessoasPesquisaComponent implements OnInit {
 
  private filtro = new FiltroPessoa();
 
-  constructor(private pessoaService: PessoaService) {}
+  constructor(private pessoaService: PessoaService, private title: Title) {}
+
+  ngOnInit(): void {
+    this.title.setTitle('Lista Lançamentos');
+  }
 
   pesquisar(){
       this.pessoaService.nextFiltro(this.filtro);

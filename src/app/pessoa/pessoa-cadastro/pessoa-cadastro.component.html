@@ -1,9 +1,9 @@
 <div class="container">
     <div class="ui-g">
         <div class="ui-g-12 ui-fluid">
-            <h1>Nova Pessoa</h1>
+            <h1>{{editando ? 'Editando' : 'Nova'}} Pessoa</h1>
         </div>
-        <form #formulario="ngForm" (ngSubmit)="cadastrar(formulario)">
+        <form #formulario="ngForm" (ngSubmit)="salvar(formulario)">
             <div class="ui-g-12 ui-fluid">
                 <label for="nome">Nome</label>
                 <input pInputText name="nome" [(ngModel)]="pessoa.nome" ngModel #nome="ngModel" required minlength="5" id="nome" type="text">
@@ -55,7 +55,7 @@
 
             <div class="ui-g-12">
                 <button [disabled]="!formulario.valid" pButton type="submit" label="Salvar"></button>
-                <button pButton class="ui-button-info" type="submit" label="Novo"></button>
+                <button pButton class="ui-button-info" type="button" (click)="novo(formulario)" label="Novo"></button>
             </div>
             <div class="ui-g-12">
                 <a routerLink='/pessoas'>Voltar para a pesquisa</a>

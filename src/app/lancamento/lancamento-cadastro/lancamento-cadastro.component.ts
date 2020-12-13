@@ -39,7 +39,7 @@ export class LancamentoCadastroComponent implements OnInit {
     this.carregarTipoLancamento();
     this.carregarCategorias();
     this.carregarPessoas();    
-    this.carregarPessoaPorCodigo();
+    this.carregarLancamentoPorCodigo();
 
     this.title.setTitle('Cadastrar Lançamento')    
   }
@@ -58,7 +58,6 @@ export class LancamentoCadastroComponent implements OnInit {
   }
   
   lancar(){
-    console.log('iniciando lancamento')
     this.lancamentoService.lancar(this.lancamento)
     .then((resposta) => {
       if(resposta.status === 400){
@@ -72,7 +71,6 @@ export class LancamentoCadastroComponent implements OnInit {
   }
   
   atualizarLancamento(){
-    console.log('Atualizar')
     this.lancamentoService.atualizar(this.lancamento)
     .then(resposta => {
       if(resposta.status === 400){
@@ -84,7 +82,7 @@ export class LancamentoCadastroComponent implements OnInit {
     })
   }
   
-  carregarPessoaPorCodigo(){
+  carregarLancamentoPorCodigo(){
     let codigo: number = this.activatedRoute.snapshot.params['codigo'];
       if(codigo != undefined)
         this.lancamentoService.buscarPorCodigo(codigo)

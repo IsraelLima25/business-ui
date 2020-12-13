@@ -7,16 +7,16 @@
             <p-column field="ativo" header="Status">
                 <ng-template let-pess="rowData" pTemplate="body">
                     <div *ngIf="pess.ativo; else elseStatus">
-                        <a pTooltip="Desativar" (click)="desativar(pess)" href="#" tooltipPosition="top">Ativo</a>
+                        <a pTooltip="Desativar" (click)="desativar(pess)" href="javascript:void(0)" tooltipPosition="top">Ativo</a>
                     </div>
                     <ng-template #elseStatus>
-                        <a pTooltip="Ativar" (click)="ativar(pess)" href="#" tooltipPosition="top">Inativo</a>
+                        <a pTooltip="Ativar" (click)="ativar(pess)" href="javascript:void(0)" tooltipPosition="top">Inativo</a>
                     </ng-template>
                 </ng-template>
             </p-column>
             <p-column styleClass="col-acoes">
                 <ng-template let-pessoa="rowData" pTemplate="body">
-                    <a pButton pTooltip="Editar" tooltipPosition="top" icon="fa-pencil"></a>
+                    <a pButton pTooltip="Editar" [routerLink]="['/pessoas', pessoa.codigo]" tooltipPosition="top" icon="fa-pencil"></a>
                     <button pButton pTooltip="Excluir" (click)="confirm(pessoa)" tooltipPosition="top" icon="fa-trash"></button>
                 </ng-template>
             </p-column>

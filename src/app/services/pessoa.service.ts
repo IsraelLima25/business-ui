@@ -92,4 +92,23 @@ export class PessoaService {
     .catch(err => this.handlerError.handler(err));
   }
 
+  buscarPorCodigo(codigo: number):Promise<Pessoa>{
+    return this.http.get(`${this.pessoaUrl}/${codigo}`)
+    .toPromise()
+    .then(((pessoa: any) => {       
+      return pessoa.json();
+    }))    
+    .catch(err => this.handlerError.handler(err));
+  }
+
+  atualizar(pessoa: Pessoa):Promise<any>{
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+      return this.http.put(`${this.pessoaUrl}/${pessoa.codigo}`, 
+        JSON.stringify(pessoa), { headers })
+        .toPromise()
+        .then(pessoaAtualizada => { return pessoaAtualizada.json() })
+        .catch(err => { return err.json() });
+  }
+
 }
