@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 import { SelectButtonModule } from 'primeng/components/selectbutton/selectbutton';
 import { InputMaskModule } from 'primeng/components/inputmask/inputmask'
@@ -17,7 +18,6 @@ import { ListaPessoasComponent } from './lista-pessoas/lista-pessoas.component';
 import { PessoaCadastroComponent } from './pessoa-cadastro/pessoa-cadastro.component';
 import { PessoasPesquisaComponent } from './pessoas-pesquisa/pessoas-pesquisa.component';
 import { PessoaService } from 'app/services/pessoa.service';
-import { RouterModule } from '@angular/router';
 import { PessoaRoutingModule } from './pessoa-routing.module';
 
 @NgModule({

@@ -1,4 +1,5 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 import { ToastyService } from 'ng2-toasty';
 import { ConfirmationService } from 'primeng/primeng';
@@ -7,7 +8,6 @@ import { LazyLoadEvent } from 'primeng/components/common/lazyloadevent';
 import { FiltroPessoa } from 'app/models/FiltroPessoa.model';
 import { PessoaService } from 'app/services/pessoa.service';
 import { ErroHandlerService } from 'app/services/erro-handler.service';
-import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-lista-pessoas',
@@ -80,17 +80,11 @@ export class ListaPessoasComponent implements OnInit {
   excluir(pessoa: any){
     
     this.pessoaService.excluir(pessoa)
-    .then((response: any) => {
-      if(response.status === 204){
-         if(this.grid.first === 0){
-           this.pesquisar();
-         }else{
-           this.grid.first = 0;
-         }
-         this.toastyService.success(response.mensagem);        
-      }else{
-        this.handlerService.handler(response.mensagem);
-      }
+    .then(() => {
+      this.toastyService.success('Pessoa excluída com sucesso');
+    })
+    .catch(err => {
+      this.handlerService.handler(err)
     })     
   }
 

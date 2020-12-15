@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+
+import { ToastyService } from 'ng2-toasty';
+
 import { Pessoa } from 'app/models/Pessoa.model';
 import { PessoaService } from 'app/services/pessoa.service';
-import { ToastyService } from 'ng2-toasty';
 
 @Component({
   selector: 'app-pessoa-cadastro',

@@ -8,7 +8,6 @@ import 'rxjs/add/operator/toPromise';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs';
 import { ErroHandlerService } from './erro-handler.service';
-import { Response } from '../models/Response.model';
 import { Pessoa } from 'app/models/Pessoa.model';
 
 @Injectable()
@@ -42,11 +41,14 @@ export class PessoaService {
     .catch(err => this.handlerError.handler(err));
   }
 
-  excluir(pessoa: any){
+  excluir(pessoa: any):Promise<any>{
     return this.http.delete(`${this.pessoaUrl}/${pessoa.codigo}`).toPromise()    
-    .then(() => { return new Response(204, 'Pessoa excluída com sucesso.')
-    })    
-    .catch(err => {return new Response(err.json().status,err.json().msg)})
+    .then(() => {})        
+    .catch(err => {
+      if(err && err.status === 400){
+        return Promise.reject('Pessoa não pode ser excluída pois pertence a outros lançamentos');
+      }
+    })
   }
 
   pesquisar(filtroPessoa: FiltroPessoa): Promise<any>{

@@ -59,26 +59,22 @@ export class LancamentoCadastroComponent implements OnInit {
   
   lancar(){
     this.lancamentoService.lancar(this.lancamento)
-    .then((resposta) => {
-      if(resposta.status === 400){
-        this.toastyService.error(resposta.msg);
-      }else{        
-        this.lancamento.codigo = resposta.codigo; 
-        this.toastyService.success('Lançamento cadastrado com sucesso');
-      }
-
-    }).catch((err)=> this.handlerError.handler(err))
+    .then((lancamentoCadastrado) => {  
+        this.lancamento.codigo = lancamentoCadastrado.codigo; 
+        this.toastyService.success('Lançamento cadastrado com sucesso');        
+    }).catch((err) => {  
+      this.toastyService.error(err.msg);
+    })
   }
   
   atualizarLancamento(){
     this.lancamentoService.atualizar(this.lancamento)
-    .then(resposta => {
-      if(resposta.status === 400){
-        this.toastyService.error(resposta.msg);
-      }else{
+    .then(lancamentoAtualizado => {  
         this.lancamento = this.lancamento;
-        this.toastyService.success('Lançamento atualizado com sucesso');
-      }
+        this.toastyService.success('Lançamento atualizado com sucesso');    
+    })
+    .catch(err => {
+      this.toastyService.error(err.msg);
     })
   }
   
